@@ -16,7 +16,7 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=True)
+    password = self.__generate_hash(data.get('password'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
@@ -37,6 +37,8 @@ class UserModel(db.Model):
 
     def update(self, data):
         for key, item in data.items():
+            if key == 'password':
+                self.password = self.__generate_hash(value)
             setattr(self, key, item)
         self.modified_at = datetime.datetime.utcnow()
         db.session.commit()
