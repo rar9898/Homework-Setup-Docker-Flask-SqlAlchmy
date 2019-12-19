@@ -64,7 +64,7 @@ class UserModel(db.Model):
         return UserModel.query.get(id)
 
     def __repr(self):
-        return '<id {}>'.format(self.id
+        return '<id {}>'.format(self.id)
 
 class UserSchema(Schema):
     """
