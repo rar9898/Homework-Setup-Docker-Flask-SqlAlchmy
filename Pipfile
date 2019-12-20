@@ -17,6 +17,8 @@ pyjwt = "*"
 self = "*"
 data = "*"
 value = "*"
+pytest-cov = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"
