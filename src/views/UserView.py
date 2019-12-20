@@ -1,6 +1,6 @@
 # /src/views/UserView
 
-from flask import request, json, Response, Blueprint
+from flask import request, json, Response, Blueprint, g
 from ..models.UserModel import UserModel, UserSchema
 from ..shared.Authentication import Auth
 
@@ -35,12 +35,12 @@ def create():
     return custom_response({'jwt_token': token}, 201)
 
 
-@user_api.route('/<int:user_id>', methods=['GET'])
+@user_api.route('/', methods=['GET'])
 @Auth.auth_required
 def get_a_user(user_id):
     """
-    Get a single user
-    """
+  Get a single user
+  """
     user = UserModel.get_one_user(user_id)
     if not user:
         return custom_response({'error': 'user not found'}, 404)
@@ -53,8 +53,8 @@ def get_a_user(user_id):
 @Auth.auth_required
 def update():
     """
-    Update me
-    """
+  Update me
+  """
     req_data = request.get_json()
     data, error = user_schema.load(req_data, partial=True)
     if error:
@@ -70,8 +70,8 @@ def update():
 @Auth.auth_required
 def delete():
     """
-    Delete a user
-    """
+  Delete a user
+  """
     user = UserModel.get_one_user(g.user.get('id'))
     user.delete()
     return custom_response({'message': 'deleted'}, 204)
@@ -81,8 +81,8 @@ def delete():
 @Auth.auth_required
 def get_me():
     """
-    Get me
-    """
+  Get me
+  """
     user = UserModel.get_one_user(g.user.get('id'))
     ser_user = user_schema.dump(user).data
     return custom_response(ser_user, 200)
