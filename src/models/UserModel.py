@@ -17,7 +17,7 @@ class UserModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), unique=True, nullable=False)
-    password = self.__generate_hash(data.get('password'))
+    password = db.Column(db.String(128), nullable=True)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     blogposts = db.relationship('BlogpostModel', backref='users', lazy=True)
@@ -29,7 +29,7 @@ class UserModel(db.Model):
         """
         self.name = data.get('name')
         self.email = data.get('email')
-        self.password = data.get('password')
+        self.password = self.__generate_hash(data.get('password'))
         self.created_at = datetime.datetime.utcnow()
         self.modified_at = datetime.datetime.utcnow()
 
