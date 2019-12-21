@@ -1,1 +1,4 @@
-# Web_application part -3 heroku deployment
+# MINIPROJECT 3
+## IS601 WEB SYSTEMS DEVELOPMENT
+## Heroku deployment PART -3
+### CREATED BY RUCHI RAWAT(rr678)
